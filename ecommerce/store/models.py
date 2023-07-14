@@ -18,19 +18,19 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name='product', on_delete=models.CASCADE)
     created_by = models.ForeignKey(User, related_name='product_creator', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    author = models.CharField(max_length=255, delfault='admin')
+    author = models.CharField(max_length=255, default='admin')
     description=models.TextField(blank=True)
     image = models.ImageField(upload_to='images/')
     slug = models.SlugField(max_length=255)
     price = models.DecimalField(max_digits=5,decimal_places=2)
     in_stock = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
-    created = models.BooleanField(auto_add_now=True)
-    updated = models.BooleanField(auto_add = True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now = True)
 
     class Meta:
         verbose_name="Products"
-        ordering=('-created')
+        ordering=('-created',)
     
     def __str__(self):
         return self.title
